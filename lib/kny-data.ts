@@ -1,0 +1,32 @@
+export const KNY_DAYS = [
+  {
+    icon: '🛕',
+    title: 'Maha Songkran',
+    khmer: 'មហាសង្ក្រាន្ត',
+    chip: 'Day One',
+    desc: 'Welcoming the New Year and the new celestial guardian with hope, joy, and new beginnings.',
+    tint: 'bg-[#1A4B75]/8',
+    chipTint: 'bg-[#1A4B75]/10 text-[#1A4B75]',
+    circle: 'bg-[#1A4B75]/15',
+  },
+  {
+    icon: '👨‍👩‍👧',
+    title: 'Virak Wanabat',
+    khmer: 'វារៈវ័នបត',
+    chip: 'Day Two',
+    desc: 'Honoring family, elders, and the spirit of giving through acts of kindness and generosity.',
+    tint: 'bg-[#3d6b4f]/8',
+    chipTint: 'bg-[#3d6b4f]/10 text-[#3d6b4f]',
+    circle: 'bg-[#3d6b4f]/15',
+  },
+  {
+    icon: '💧',
+    title: 'Vearak Loeng Sak',
+    khmer: 'វារៈឡើងស័ក',
+    chip: 'Day Three',
+    desc: 'Receiving blessings through traditional water ceremonies, symbolizing renewal and a fresh start for the year ahead.',
+    tint: 'bg-[#D97D54]/8',
+    chipTint: 'bg-[#D97D54]/15 text-[#b05c37]',
+    circle: 'bg-[#D97D54]/20',
+  },
+];

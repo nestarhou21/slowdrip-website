@@ -1,0 +1,53 @@
+import type { MenuItem } from '@/types/menu';
+
+export const menuItems: MenuItem[] = [
+  // ─── COFFEE ──────────────────────────────────────────────────────────────
+  { id: 1,  name: 'Ice Americano',          priceM: '$1.50', priceL: '$2.00', category: 'Coffee',  image: '/asset/menu/ice-americano.jpg',          description: 'Bold espresso with cold water over crushed ice' },
+  { id: 2,  name: 'Ice Espresso Cacao',     priceM: '$1.38',                  category: 'Coffee',  image: '/asset/menu/ice-espressocacao.jpg',       description: 'Rich espresso paired with smooth cocoa depth' },
+  { id: 3,  name: 'Ice Cappuccino',         priceM: '$1.63', priceL: '$2.13', category: 'Coffee',  image: '/asset/menu/ice-cappuccino.jpg',          description: 'Classic cappuccino with velvety foam on ice' },
+  { id: 4,  name: 'Ice Coffee',             priceM: '$1.63', priceL: '$2.13', category: 'Coffee',  image: '/asset/menu/ice-coffee.jpg',              description: 'Smooth house-blend cold coffee, clean and refreshing' },
+  { id: 5,  name: 'Ice Latte',              priceM: '$1.63', priceL: '$2.13', category: 'Coffee',  image: '/asset/menu/ice-latte.jpg',               description: 'Creamy espresso latte with fresh milk on ice' },
+  { id: 6,  name: 'Ice Caramel Latte',      priceM: '$1.75', priceL: '$2.25', category: 'Coffee',  image: '/asset/menu/ice-caramellatte.jpg',        description: 'Classic latte swirled with golden caramel syrup' },
+  { id: 7,  name: 'Ice Caramel Latte Cream',priceM: '$1.75', priceL: '$2.25', category: 'Coffee',  image: '/asset/menu/ice-caramellattecream.jpg',   description: 'Sweet caramel latte topped with silky cream foam' },
+  { id: 8,  name: 'Ice Blue Latte',         priceM: '$1.75', priceL: '$2.25', category: 'Coffee',  image: '/asset/menu/ice-bluelatte.jpg',           description: 'Butterfly pea espresso latte, striking blue and creamy' },
+  { id: 9,  name: 'Ice Coconut Americano',  priceM: '$2.00', priceL: '$2.50', category: 'Coffee',  image: '/asset/menu/ice-coconutamericano.jpg',    description: 'Bold espresso meets fresh tropical coconut water' },
+  { id: 10, name: 'Ice Coconut Cafe',       priceM: '$1.75', priceL: '$2.25', category: 'Coffee',  image: '/asset/menu/ice-coconutcafe.jpg',         description: 'House coffee blended with smooth coconut milk' },
+  { id: 11, name: 'Ice Honey Americano',    priceM: '$2.00', priceL: '$2.50', category: 'Coffee',  image: '/asset/menu/ice-honeyamericano.jpg',      description: 'Espresso lightly sweetened with pure natural honey' },
+  { id: 12, name: 'Ice Orange Americano',   priceM: '$2.00', priceL: '$2.50', category: 'Coffee',  image: '/asset/menu/ice-orangeamericano.jpg',     description: 'Zesty fresh orange juice meets bold iced espresso' },
+  { id: 13, name: 'Ice Passion Americano',  priceM: '$2.00', priceL: '$2.50', category: 'Coffee',  image: '/asset/menu/ice-passionamericano.jpg',    description: 'Tropical passion fruit swirled into rich espresso' },
+  { id: 14, name: 'Ice Strawberry Americano',priceM:'$2.00', priceL: '$2.50', category: 'Coffee',  image: '/asset/menu/ice-strawberryamericano.jpg', description: 'Sweet strawberry notes balanced with bold espresso' },
+  { id: 15, name: 'Ice Cacao Mint',         priceM: '$1.75', priceL: '$2.25', category: 'Coffee',  image: '/asset/menu/ice-cacaomint.jpg',           description: 'Cool fresh mint with dark cacao in iced espresso' },
+  { id: 16, name: 'Ice Chocolate Latte',    priceM: '$1.75', priceL: '$2.25', category: 'Coffee',  image: '/asset/menu/ice-chocolatelatte.jpg',      description: 'Velvety chocolate blended with espresso and milk' },
+
+  // ─── MATCHA ──────────────────────────────────────────────────────────────
+  { id: 20, name: 'Ice Matcha Latte',       priceM: '$2.62', priceL: '$3.13', category: 'Matcha',  image: '/asset/menu/ice-matchalatte.jpg',         description: 'Ceremonial grade matcha with creamy milk on ice' },
+  { id: 21, name: 'Ice Coconut Matcha',     priceM: '$3.00', priceL: '$3.50', category: 'Matcha',  image: '/asset/menu/ice-coconutmatcha.jpg',       description: 'Smooth matcha blended with refreshing coconut water' },
+  { id: 22, name: 'Ice Blue Matcha',        priceM: '$2.75', priceL: '$3.25', category: 'Matcha',  image: '/asset/menu/ice-bluematcha.jpg',          description: 'Vibrant butterfly pea flower meets earthy matcha' },
+  { id: 23, name: 'Ice Blueberry Matcha',   priceM: '$3.00', priceL: '$3.50', category: 'Matcha',  image: '/asset/menu/ice-blueberrymatcha.jpg',     description: 'Layered fresh blueberry purée with ceremonial matcha' },
+  { id: 24, name: 'Ice Lychee Matcha',      priceM: '$3.00', priceL: '$3.50', category: 'Matcha',  image: '/asset/menu/ice-lycheematcha.jpg',        description: 'Exotic sweet lychee paired with earthy green matcha' },
+  { id: 25, name: 'Ice Yuzu Matcha',        priceM: '$3.50', priceL: '$4.00', category: 'Matcha',  image: '/asset/menu/ice-yuzumatcha.jpg',          description: 'Bright citrusy yuzu with premium ceremonial matcha' },
+  { id: 26, name: 'Ice Hojicha Latte',      priceM: '$2.62', priceL: '$3.13', category: 'Matcha',  image: '/asset/menu/ice-hojichalatte.jpg',        description: 'Roasted green tea latte with warm nutty finish' },
+  { id: 27, name: 'Ice Chocolate Matcha',   priceM: '$3.00', priceL: '$3.50', category: 'Matcha',  image: '/asset/menu/ice-chocolatematcha.jpg',     description: 'Rich dark chocolate layered over smooth ceremonial matcha' },
+  { id: 28, name: 'Ice Caramel Matcha',     priceM: '$3.00', priceL: '$3.50', category: 'Matcha',  image: '/asset/menu/ice-caramelmatcha.jpg',       description: 'Golden caramel drizzle swirled into creamy matcha' },
+  { id: 29, name: 'Ice Watermelon Matcha',  priceM: '$3.00', priceL: '$3.50', category: 'Matcha',  image: '/asset/menu/ice-watermelonmatcha.jpg',    description: 'Fresh watermelon juice layered over vibrant green matcha' },
+
+  // ─── TEA ─────────────────────────────────────────────────────────────────
+  { id: 40, name: 'Peach Tea',              priceM: '$1.63', priceL: '$2.13', category: 'Tea',     image: '/asset/menu/ice-peachtea.jpg',            description: 'Fragrant sweet peach brewed into a refreshing tea' },
+  { id: 41, name: 'Pink Peach Tea',         priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-pinkpeachtea.jpg',        description: 'Vibrant pink peach tea, sweet and beautifully fruity' },
+  { id: 42, name: 'Lemonade Passion',       priceM: '$1.50', priceL: '$2.00', category: 'Tea',     image: '/asset/menu/ice-lemonatepassion.jpg',     description: 'Crisp lemonade bursting with tropical passion fruit' },
+  { id: 43, name: 'Lychee Tea',             priceM: '$1.63', priceL: '$2.13', category: 'Tea',     image: '/asset/menu/ice-lycheetea.jpg',           description: 'Premium brewed tea infused with sweet lychee fruit' },
+  { id: 44, name: 'Honey Lemon Tea',        priceM: '$1.50', priceL: '$2.00', category: 'Tea',     image: '/asset/menu/ice-honeylemontea.jpg',       description: 'Classic lemon tea drizzled with pure natural honey' },
+  { id: 45, name: 'Milk Tea',               priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-milktea.jpg',             description: 'Smooth classic milk tea with a rich creamy base' },
+  { id: 46, name: 'Milk Tea Caramel',       priceM: '$1.88', priceL: '$2.38', category: 'Tea',     image: '/asset/menu/ice-milkteacaramel.jpg',      description: 'Rich creamy milk tea swirled with golden caramel' },
+  { id: 47, name: 'Milk Passion',           priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-milkpassion.jpg',         description: 'Creamy milk base blended with tropical passion fruit' },
+  { id: 48, name: 'Passion Soda',           priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-passionsoda.jpg',         description: 'Fizzy sparkling soda bursting with passion fruit' },
+  { id: 49, name: 'Green Tea',              priceM: '$1.50', priceL: '$2.00', category: 'Tea',     image: '/asset/menu/ice-greentea.jpg',            description: 'Clean and light premium green tea over ice' },
+  { id: 50, name: 'Green Tea Coconut',      priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-greenteacoconut.jpg',     description: 'Light green tea paired with smooth creamy coconut' },
+  { id: 51, name: 'Green Lemon Tea',        priceM: '$1.63', priceL: '$2.13', category: 'Tea',     image: '/asset/menu/ice-greenlemontea.jpg',       description: 'Crisp green tea with a bright squeeze of lemon' },
+  { id: 52, name: 'Green Grape Fruit Tea',  priceM: '$1.63', priceL: '$2.13', category: 'Tea',     image: '/asset/menu/ice-greengrapefruittea.jpg',  description: 'Refreshing green tea with tangy grapefruit citrus' },
+  { id: 53, name: 'Red Tea',                priceM: '$1.50', priceL: '$2.00', category: 'Tea',     image: '/asset/menu/ice-redtea.jpg',              description: 'Full-bodied premium red tea, clean and aromatic' },
+  { id: 54, name: 'Red Lemon Tea',          priceM: '$1.63', priceL: '$2.13', category: 'Tea',     image: '/asset/menu/ice-redlemontea.jpg',         description: 'Bold red tea brightened with fresh lemon juice' },
+  { id: 55, name: 'Red Tea Coconut',        priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-redteacoconut.jpg',       description: 'Floral red tea paired with fresh coconut water' },
+  { id: 56, name: 'Chinese Orange Tea',     priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-chineseorangetea.jpg',    description: 'Traditional Chinese tea with a fresh orange zest' },
+  { id: 57, name: 'Soursop Tea',            priceM: '$1.75', priceL: '$2.25', category: 'Tea',     image: '/asset/menu/ice-soursoptea.jpg',          description: 'Exotic tropical soursop fruit in a refreshing tea' },
+];
