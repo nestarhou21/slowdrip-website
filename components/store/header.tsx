@@ -45,11 +45,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 w-full bg-white/95 backdrop-blur-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-28 md:h-36 flex items-center justify-between gap-4">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
-          <Image src="/asset/Logo/logo.png" alt="Slow Drip — cafe and eatery" width={220} height={48} className="h-9 md:h-10 w-auto" />
+        <Link href="/" className="flex items-center flex-shrink-0 ml-3 md:ml-8">
+          <Image src="/asset/Logo/black_logo.png" alt="Slow Drip — cafe and eatery" width={220} height={48} className="h-24 md:h-32 w-auto" />
         </Link>
 
         {/* Desktop nav */}
