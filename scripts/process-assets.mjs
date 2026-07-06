@@ -4,8 +4,9 @@
  * Usage:  node scripts/process-assets.mjs [images|videos|all]
  *
  * Images: resized to max 1600px wide, converted to mozjpeg q78.
- * Videos: converted to H.264 mp4 (max 1080px wide, crf 27, faststart)
- *         plus a .jpg poster frame extracted for each.
+ * Videos: converted to H.264 mp4 (max 720px wide, crf 28, faststart)
+ *         plus a .jpg poster frame extracted for each. 720p halves the
+ *         file size vs 1080p and is plenty for the phone-sized reel cards.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
@@ -75,8 +76,8 @@ function processVideos() {
       const poster = path.join(dir, `${base}-poster.jpg`);
       execFileSync('ffmpeg', [
         '-y', '-i', src,
-        '-vf', "scale='min(1080,iw)':-2",
-        '-c:v', 'libx264', '-crf', '27', '-preset', 'medium',
+        '-vf', "scale='min(720,iw)':-2",
+        '-c:v', 'libx264', '-crf', '28', '-preset', 'medium',
         '-movflags', '+faststart',
         '-c:a', 'aac', '-b:a', '128k',
         '-pix_fmt', 'yuv420p',
