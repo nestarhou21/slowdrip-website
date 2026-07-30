@@ -26,24 +26,21 @@ export function SlowMoments() {
           {/* Right: logo + text */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-end text-center lg:text-right space-y-6 lg:space-y-7">
 
-            {/* SLOWDRIP brand: hidden on mobile, the hero image already carries the logo */}
-            <div className="relative hidden lg:block w-full max-w-[460px] h-64">
-              <Image
-                src="/logo.jpg"
-                alt="Slow Drip Logo"
-                fill
-                sizes="460px"
-                className="object-contain object-right"
-                priority
-              />
-            </div>
-
-            <div className="space-y-2 lg:space-y-3">
-              <h1 className="text-[27px] leading-snug md:text-5xl lg:text-[52px] font-bold text-[#1A4B75] md:leading-tight">
-                Slow moments,<br />thoughtfully brewed.
+            <div className="space-y-3 lg:space-y-4">
+              <h1
+                className="text-4xl leading-tight md:text-6xl lg:text-7xl font-bold text-[#1A4B75]"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                Slow Drip Coffee
               </h1>
+              <p
+                className="text-lg md:text-2xl lg:text-[28px] italic text-[#1A4B75] font-medium leading-snug"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                Crafted with Care, Served with Passion.
+              </p>
               <p className="text-xs md:text-base text-[#1A4B75]/65 font-medium">
-                Specialty coffee &amp; quiet comfort in the heart of the city.
+                Locally Crafted Coffee for Every Coffee Lover.
               </p>
             </div>
 
