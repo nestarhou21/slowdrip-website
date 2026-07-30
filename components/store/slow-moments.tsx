@@ -26,20 +26,14 @@ export function SlowMoments() {
           {/* Right: logo + text */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-end text-center lg:text-right space-y-6 lg:space-y-7">
 
-            <div className="space-y-3 lg:space-y-4">
-              <h1
-                className="text-4xl leading-tight md:text-6xl lg:text-7xl font-bold text-[#1A4B75]"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Slow Drip Coffee
+            <div
+              className="space-y-3 lg:space-y-4"
+              style={{ fontFamily: 'Helvetica, "Helvetica Neue", Arial, sans-serif' }}
+            >
+              <h1 className="text-3xl leading-tight md:text-5xl lg:text-[54px] font-bold text-[#1A4B75]">
+                Crafted with Care,<br />Served with Passion.
               </h1>
-              <p
-                className="text-lg md:text-2xl lg:text-[28px] italic text-[#1A4B75] font-medium leading-snug"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Crafted with Care, Served with Passion.
-              </p>
-              <p className="text-xs md:text-base text-[#1A4B75]/65 font-medium">
+              <p className="text-sm md:text-lg text-[#1A4B75]/70 font-medium">
                 Locally Crafted Coffee for Every Coffee Lover.
               </p>
             </div>

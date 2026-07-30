@@ -106,7 +106,7 @@ export function Location() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {SOCIALS.map(({ platform, href, tagline, image, imageAlt, gradient }) => (
+            {SOCIALS.map(({ platform, href, tagline, gradient }) => (
               <a
                 key={platform}
                 href={href}
@@ -120,14 +120,14 @@ export function Location() {
                   {platform}
                 </span>
 
-                {/* Drink */}
-                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[62%] block h-52 w-52 md:h-56 md:w-56 rounded-full overflow-hidden ring-1 ring-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-105">
+                {/* Logo */}
+                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[62%] block h-52 w-52 md:h-56 md:w-56 rounded-full bg-white overflow-hidden ring-1 ring-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-105">
                   <Image
-                    src={image}
-                    alt={imageAlt}
+                    src="/logo.jpg"
+                    alt="Slow Drip"
                     fill
                     sizes="(max-width: 768px) 90vw, 300px"
-                    className="object-cover"
+                    className="object-contain p-6"
                   />
                 </span>
 

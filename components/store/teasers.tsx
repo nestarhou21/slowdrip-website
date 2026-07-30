@@ -210,7 +210,7 @@ const CARD_STAMPS = 4;
 /** Homepage summary of the loyalty program → /membership. Mobile-first. */
 export function MembershipTeaser() {
   return (
-    <section className="w-full bg-[#FAF6EC] py-16 md:py-24">
+    <section className="w-full bg-white py-16 md:py-24">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
