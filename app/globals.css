@@ -156,3 +156,10 @@
   50% { transform: translateY(-10px); }
 }
 .animate-float-card { animation: float-card 5s ease-in-out infinite; }
+
+/* Songkran day icons: gentle 3D orb float */
+@keyframes orb-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.orb-float { animation: orb-float 4s ease-in-out infinite; }

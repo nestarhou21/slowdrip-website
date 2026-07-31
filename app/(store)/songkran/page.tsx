@@ -64,10 +64,21 @@ export default function SongkranPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {KNY_DAYS.map(({ icon, title, khmer, chip, desc, tint, chipTint, circle }) => (
-              <div key={title} className={`rounded-2xl ${tint} p-7 flex flex-col items-start gap-4`}>
-                <span className={`flex h-16 w-16 items-center justify-center rounded-full text-3xl ${circle}`}>
-                  {icon}
+            {KNY_DAYS.map(({ icon, title, khmer, chip, desc, tint, chipTint, circle }, i) => (
+              <div key={title} className={`group rounded-2xl ${tint} p-7 flex flex-col items-start gap-4`}>
+                <span
+                  className={`orb-float relative flex h-16 w-16 items-center justify-center rounded-full text-3xl ${circle} ring-1 ring-white/50 shadow-[0_12px_24px_-8px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-6`}
+                  style={{ animationDelay: `${i * 0.5}s` }}
+                >
+                  {/* 3D sphere sheen: highlight top-left, shade bottom-right */}
+                  <span
+                    className="pointer-events-none absolute inset-0 rounded-full"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 32% 26%, rgba(255,255,255,.65), rgba(255,255,255,0) 55%), radial-gradient(circle at 72% 82%, rgba(0,0,0,.22), rgba(0,0,0,0) 60%)',
+                    }}
+                  />
+                  <span className="relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]">{icon}</span>
                 </span>
                 <div>
                   <span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${chipTint}`}>
