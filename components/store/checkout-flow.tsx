@@ -4,13 +4,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Check, ChevronRight, ShoppingBag, User, CreditCard, PartyPopper, Minus, Plus, X } from 'lucide-react';
+import { Check, ChevronRight, ShoppingBag, User, PartyPopper, Minus, Plus, X, Banknote, Bike, MapPin, Send } from 'lucide-react';
 import { useCart } from '@/contexts/cart-context';
 
-type Step = 'review' | 'details' | 'payment' | 'confirmation';
+type Step = 'review' | 'details' | 'confirmation';
 
 type SweetnessOption = '0%' | '25%' | '50%' | '75%' | '100%';
-type PickupType = 'dine-in' | 'takeaway';
+type PickupType = 'dine-in' | 'takeaway' | 'delivery';
 
 const SWEETNESS: SweetnessOption[] = ['0%', '25%', '50%', '75%', '100%'];
 const SWEETNESS_LABELS: Record<SweetnessOption, string> = {
@@ -22,10 +22,9 @@ const SWEETNESS_LABELS: Record<SweetnessOption, string> = {
 };
 
 const STEPS: { key: Step; label: string; icon: React.ReactNode }[] = [
-  { key: 'review',       label: 'Review',   icon: <ShoppingBag className="w-4 h-4" /> },
-  { key: 'details',      label: 'Details',  icon: <User className="w-4 h-4" /> },
-  { key: 'payment',      label: 'Payment',  icon: <CreditCard className="w-4 h-4" /> },
-  { key: 'confirmation', label: 'Done',     icon: <Check className="w-4 h-4" /> },
+  { key: 'review',       label: 'Your Drinks', icon: <ShoppingBag className="w-4 h-4" /> },
+  { key: 'details',      label: 'Your Details', icon: <User className="w-4 h-4" /> },
+  { key: 'confirmation', label: 'Done',         icon: <Check className="w-4 h-4" /> },
 ];
 
 function generateOrderId() {
@@ -51,11 +50,17 @@ export function CheckoutFlow() {
     name: '',
     phone: '',
     pickupType: 'dine-in' as PickupType,
+    address: '',
+    telegram: '',
     sweetness: '50%' as SweetnessOption,
     notes: '',
   });
 
   const stepIndex = STEPS.findIndex(s => s.key === step);
+  // Delivery orders cannot be placed without somewhere to deliver to.
+  const canPlaceOrder =
+    isValidPhone(form.phone) &&
+    (form.pickupType !== 'delivery' || form.address.trim().length >= 6);
 
   function set(field: keyof typeof form, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -76,6 +81,8 @@ export function CheckoutFlow() {
           customerName: form.name,
           phone: form.phone,
           pickupType: form.pickupType,
+          address: form.address,
+          telegram: form.telegram,
           sweetness: form.sweetness,
           notes: form.notes,
           total,
@@ -239,8 +246,8 @@ export function CheckoutFlow() {
                 <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500">
                   Order Type
                 </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {(['dine-in', 'takeaway'] as PickupType[]).map(type => (
+                <div className="grid grid-cols-3 gap-2">
+                  {(['dine-in', 'takeaway', 'delivery'] as PickupType[]).map(type => (
                     <button
                       key={type}
                       onClick={() => set('pickupType', type)}
@@ -250,10 +257,51 @@ export function CheckoutFlow() {
                           : 'bg-white text-gray-500 border-gray-200 hover:border-[#1A4B75]/40'
                       }`}
                     >
-                      {type === 'dine-in' ? 'Dine In' : 'Takeaway'}
+                      {type === 'dine-in' ? 'Dine In' : type === 'takeaway' ? 'Takeaway' : 'Delivery'}
                     </button>
                   ))}
                 </div>
+
+              {/* Delivery: location is required, and we reach them on Telegram */}
+              {form.pickupType === 'delivery' && (
+                <div className="space-y-4 rounded-sm border border-[#1A4B75]/20 bg-[#1A4B75]/[0.03] p-4">
+                  <div className="flex items-start gap-2.5">
+                    <Send className="w-4 h-4 text-[#1A4B75] shrink-0 mt-0.5" />
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      Our team will message you on <span className="font-semibold text-[#1A4B75]">Telegram</span> to
+                      confirm your delivery time and any delivery fee before we set off.
+                    </p>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500 flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3" /> Delivery Location <span className="text-red-400">*</span>
+                    </label>
+                    <textarea
+                      value={form.address}
+                      onChange={e => set('address', e.target.value)}
+                      placeholder="Street, house number, building, floor &mdash; and any landmark that helps us find you"
+                      rows={3}
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-sm text-sm focus:outline-none focus:border-[#1A4B75] transition-colors resize-none"
+                    />
+                    <p className="text-[10px] text-gray-400">You can also share a Google Maps or Telegram location link.</p>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-gray-500">
+                      Telegram Username <span className="text-gray-300 normal-case">(optional)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={form.telegram}
+                      onChange={e => set('telegram', e.target.value)}
+                      placeholder="@yourname"
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-sm text-sm focus:outline-none focus:border-[#1A4B75] transition-colors"
+                    />
+                    <p className="text-[10px] text-gray-400">Leave empty and we&apos;ll reach you on the phone number above.</p>
+                  </div>
+                </div>
+              )}
               </div>
 
               <div className="space-y-2">
@@ -294,6 +342,30 @@ export function CheckoutFlow() {
               </div>
             </div>
 
+            {/* Cash only — no online payment step */}
+            <div className="flex items-start gap-3 rounded-sm border border-emerald-200 bg-emerald-50/60 p-4">
+              <Banknote className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+              <div>
+                <p className="text-sm font-bold text-emerald-900">
+                  {form.pickupType === 'delivery' ? 'Cash on Delivery' : 'Pay When You Collect'}
+                </p>
+                <p className="text-xs text-emerald-800/80 mt-0.5 leading-relaxed">
+                  {form.pickupType === 'delivery'
+                    ? 'No payment needed now — simply pay our rider in cash when your order arrives.'
+                    : 'No payment needed now — just pay at the counter when you pick up your drinks.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center px-1">
+              <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Total</span>
+              <span className="text-xl font-bold text-[#1A4B75]">${total.toFixed(2)}</span>
+            </div>
+
+            {error && (
+              <p className="text-xs text-red-500 text-center">{error}</p>
+            )}
+
             <div className="flex gap-3">
               <button
                 onClick={() => setStep('review')}
@@ -302,131 +374,17 @@ export function CheckoutFlow() {
                 Back
               </button>
               <button
-                onClick={() => { if (isValidPhone(form.phone)) setStep('payment'); }}
-                disabled={!isValidPhone(form.phone)}
+                onClick={() => { if (canPlaceOrder) placeOrder(); }}
+                disabled={!canPlaceOrder || submitting}
                 className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#1A4B75] text-white text-sm font-bold uppercase tracking-widest rounded-sm hover:bg-[#1A4B75]/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Continue to Payment <ChevronRight className="w-4 h-4" />
+                {submitting ? 'Placing Order…' : <>Place Order <ChevronRight className="w-4 h-4" /></>}
               </button>
             </div>
           </div>
         )}
 
-        {/* ── Step 3: Payment ── */}
-        {step === 'payment' && (
-          <div className="space-y-6">
-            <h1 className="text-2xl font-bold text-[#1A4B75]">Payment</h1>
-
-            {/* Order summary */}
-            <div className="bg-white rounded-sm border border-gray-100 p-5 space-y-3">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Order Summary</p>
-              {items.map(item => (
-                <div key={item.cartId} className="flex justify-between text-sm">
-                  <span className="text-gray-600">{item.name} ({item.size}) ×{item.quantity}</span>
-                  <span className="font-semibold text-[#1A4B75]">${(item.price * item.quantity).toFixed(2)}</span>
-                </div>
-              ))}
-              <div className="border-t border-gray-100 pt-3 flex justify-between">
-                <span className="text-sm font-medium text-gray-500">Total</span>
-                <span className="text-lg font-bold text-[#1A4B75]">${total.toFixed(2)}</span>
-              </div>
-              <div className="text-[11px] text-gray-400 space-y-0.5">
-                <p><span className="font-semibold">Contact:</span> {form.name ? `${form.name} · ${form.phone}` : form.phone}</p>
-                <p><span className="font-semibold">Type:</span> {form.pickupType === 'dine-in' ? 'Dine In' : 'Takeaway'} · Sweetness {form.sweetness}</p>
-                {form.notes && <p><span className="font-semibold">Notes:</span> {form.notes}</p>}
-              </div>
-            </div>
-
-            {/* ABA QR Payment */}
-            <div className="bg-white rounded-sm border border-gray-100 p-5 space-y-5">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Pay via ABA</p>
-                <p className="text-xs text-gray-500">Scan the QR code with your ABA Mobile app</p>
-              </div>
-
-              {/* QR Code */}
-              <div className="flex justify-center">
-                <div className="relative w-52 h-52 border-2 border-gray-100 rounded-sm overflow-hidden bg-gray-50 flex items-center justify-center">
-                  <Image
-                    src="/aba-qr.png"
-                    alt="ABA QR Code"
-                    fill
-                    className="object-contain p-2"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                  <p className="text-[10px] text-gray-400 text-center px-4 leading-relaxed">
-                    Add your QR image at<br />/public/aba-qr.png
-                  </p>
-                </div>
-              </div>
-
-              {/* Account details */}
-              <div className="bg-[#FAF9F6] rounded-sm p-4 space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-xs">Account Name</span>
-                  <span className="font-bold text-[#1A4B75]">NESTAR HOU</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-xs">KHR Account</span>
-                  <span className="font-mono font-semibold text-[#1A4B75] text-xs">009 418 006</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-xs">USD Account</span>
-                  <span className="font-mono font-semibold text-[#1A4B75] text-xs">089 737 198</span>
-                </div>
-                <div className="flex justify-between border-t border-gray-200 pt-2">
-                  <span className="text-gray-500 text-xs">Amount</span>
-                  <span className="font-bold text-[#1A4B75]">${total.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500 text-xs">Reference</span>
-                  <span className="font-mono font-bold text-[#1A4B75] text-xs">{orderId}</span>
-                </div>
-              </div>
-
-              <ol className="space-y-1.5 text-xs text-gray-500 list-none">
-                {[
-                  'Open ABA Mobile and tap "Scan to Pay"',
-                  `Enter amount: $${total.toFixed(2)}`,
-                  `Add reference: ${orderId}`,
-                  'Complete the transfer and tap "I\'ve Paid" below',
-                ].map((step, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="flex-shrink-0 w-4 h-4 rounded-full bg-[#1A4B75]/10 text-[#1A4B75] text-[10px] font-bold flex items-center justify-center">
-                      {i + 1}
-                    </span>
-                    {step}
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {error && (
-              <p className="text-sm text-red-500 text-center">{error}</p>
-            )}
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setStep('details')}
-                disabled={submitting}
-                className="flex-none px-6 py-3.5 border border-gray-200 text-gray-500 text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-gray-50 transition-colors disabled:opacity-40"
-              >
-                Back
-              </button>
-              <button
-                onClick={placeOrder}
-                disabled={submitting}
-                className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#1A4B75] text-white text-sm font-bold uppercase tracking-widest rounded-sm hover:bg-[#1A4B75]/90 transition-colors disabled:opacity-60"
-              >
-                {submitting ? 'Placing Order…' : "I've Paid, Confirm Order"}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* ── Step 4: Confirmation ── */}
+        {/* ── Confirmation ── */}
         {step === 'confirmation' && (
           <div className="flex flex-col items-center text-center py-12 space-y-6">
             <div className="w-16 h-16 rounded-full bg-[#1A4B75] flex items-center justify-center">
@@ -447,7 +405,13 @@ export function CheckoutFlow() {
               <div className="flex justify-between text-sm">
                 <span className="text-gray-500">Type</span>
                 <span className="font-semibold text-[#1A4B75]">
-                  {form.pickupType === 'dine-in' ? 'Dine In' : 'Takeaway'}
+                  {form.pickupType === 'dine-in' ? 'Dine In' : form.pickupType === 'takeaway' ? 'Takeaway' : 'Delivery'}
+                </span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-500">Payment</span>
+                <span className="font-semibold text-[#1A4B75]">
+                  {form.pickupType === 'delivery' ? 'Cash on Delivery' : 'Cash on Pickup'}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
@@ -456,9 +420,23 @@ export function CheckoutFlow() {
               </div>
             </div>
 
-            <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
-              Show this screen to our staff, or quote your order number. We&apos;ll have it ready shortly.
-            </p>
+            {form.pickupType === 'delivery' ? (
+              <div className="w-full max-w-sm rounded-sm border border-[#1A4B75]/20 bg-[#1A4B75]/[0.03] p-4 space-y-2 text-left">
+                <p className="text-xs font-bold text-[#1A4B75] flex items-center gap-1.5">
+                  <Bike className="w-3.5 h-3.5" /> Delivering to
+                </p>
+                <p className="text-xs text-gray-600 leading-relaxed whitespace-pre-line">{form.address}</p>
+                <p className="text-xs text-gray-500 leading-relaxed pt-1 border-t border-[#1A4B75]/10">
+                  We&apos;ll message you on Telegram shortly to confirm the delivery time and fee.
+                  Please have cash ready for the rider.
+                </p>
+              </div>
+            ) : (
+              <p className="text-xs text-gray-400 max-w-xs leading-relaxed">
+                Show this screen to our staff, or quote your order number. Pay at the counter when you collect &mdash;
+                we&apos;ll have it ready shortly.
+              </p>
+            )}
 
             <Link
               href="/menu"

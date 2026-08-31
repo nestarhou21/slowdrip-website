@@ -27,16 +27,23 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { items, customerName, phone, pickupType, sweetness, notes, total, orderId } = body;
+    const { items, customerName, phone, pickupType, address, telegram, sweetness, notes, total, orderId } = body;
 
     if (!items?.length || !phone || !total) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    const isDelivery = pickupType === 'delivery';
+    if (isDelivery && !address?.trim()) {
+      return NextResponse.json({ error: 'A delivery address is required' }, { status: 400 });
     }
 
     // Forward to the Slow Drip POS backend so the order shows up
     // in the admin portal as a new online order.
     const posNotes = [
       sweetness ? `Sweetness: ${sweetness}` : null,
+      isDelivery ? `DELIVERY to: ${address.trim()}` : null,
+      isDelivery && telegram?.trim() ? `Telegram: ${telegram.trim()}` : null,
       notes || null,
       orderId ? `Web ref: ${orderId}` : null,
     ]
@@ -51,7 +58,8 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           customer_name: customerName || null,
           customer_phone: phone,
-          order_type: pickupType === 'takeaway' ? 'takeaway' : 'dine_in',
+          order_type: isDelivery ? 'delivery' : pickupType === 'takeaway' ? 'takeaway' : 'dine_in',
+          delivery_address: isDelivery ? address.trim() : null,
           notes: posNotes || null,
           items: items.map((i: { name: string; size?: string; price: number; quantity: number }) => ({
             name: i.name,
@@ -91,6 +99,8 @@ export async function POST(req: NextRequest) {
       customerName,
       phone,
       pickupType,
+      address: isDelivery ? address.trim() : undefined,
+      telegram: isDelivery ? telegram?.trim() || undefined : undefined,
       sweetness,
       notes,
     };

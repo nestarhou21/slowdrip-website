@@ -22,7 +22,9 @@ export interface Order {
   createdAt: Date;
   customerName?: string;
   phone?: string;
-  pickupType?: 'dine-in' | 'takeaway';
+  pickupType?: 'dine-in' | 'takeaway' | 'delivery';
+  address?: string;
+  telegram?: string;
   sweetness?: string;
   notes?: string;
   telegramChatId?: string;
