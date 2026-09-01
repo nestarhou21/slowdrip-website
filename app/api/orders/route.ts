@@ -4,6 +4,12 @@ import type { Order } from '@/types/order';
 
 const POS_API_URL = process.env.POS_API_URL ?? 'http://localhost:8000/api';
 
+// A cold Render instance can take ~30s to wake; beyond that the customer is
+// better served by an error they can retry than by a spinner.
+const POS_TIMEOUT_MS = 30_000;
+
+export const maxDuration = 45;
+
 export async function GET(req: NextRequest) {
   // Order status lookup by order number, e.g. /api/orders?number=WEB-ABC123
   const number = req.nextUrl.searchParams.get('number');
@@ -13,6 +19,7 @@ export async function GET(req: NextRequest) {
   try {
     const res = await fetch(`${POS_API_URL}/public/orders/${encodeURIComponent(number)}`, {
       cache: 'no-store',
+      signal: AbortSignal.timeout(POS_TIMEOUT_MS),
     });
     if (!res.ok) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 });
@@ -54,6 +61,7 @@ export async function POST(req: NextRequest) {
     try {
       const posRes = await fetch(`${POS_API_URL}/public/orders`, {
         method: 'POST',
+        signal: AbortSignal.timeout(POS_TIMEOUT_MS),
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           customer_name: customerName || null,

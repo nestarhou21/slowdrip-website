@@ -5,6 +5,8 @@ const TELEGRAM_API_URL = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT
 export async function sendMessage(chatId: string, text: string) {
   const res = await fetch(`${TELEGRAM_API_URL}/sendMessage`, {
     method: 'POST',
+    // Staff notification is best-effort: never let it delay or fail an order.
+    signal: AbortSignal.timeout(6000),
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' }),
   });
