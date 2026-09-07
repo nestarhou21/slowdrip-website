@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, after } from 'next/server';
 import { notifyNewOrder } from '@/lib/telegram';
 import type { Order } from '@/types/order';
 
@@ -113,9 +113,17 @@ export async function POST(req: NextRequest) {
       notes,
     };
 
-    // Fire Telegram notification (non-blocking — don't fail the order if it errors)
-    notifyNewOrder(order).catch((err) => {
-      console.error('Telegram notification failed:', err);
+    // Send the Telegram notification AFTER the response is returned, so it
+    // never delays the customer's confirmation — but via after() so Vercel
+    // keeps the function alive until it actually finishes (a plain
+    // fire-and-forget promise is killed the instant the response is sent,
+    // which is why notifications weren't arriving).
+    after(async () => {
+      try {
+        await notifyNewOrder(order);
+      } catch (err) {
+        console.error('Telegram notification failed:', err);
+      }
     });
 
     return NextResponse.json({ success: true, orderId: order.id }, { status: 201 });
