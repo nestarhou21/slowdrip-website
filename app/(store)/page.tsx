@@ -26,10 +26,10 @@ export default function Home() {
       </div>
 
       <PhotoshootTeaser />
-      <KnyTeaser />
       <ReelsTeaser />
       <SpinTeaser />
       <MembershipTeaser />
+      <KnyTeaser />
       <Location />
     </>
   );

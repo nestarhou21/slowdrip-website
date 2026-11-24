@@ -31,10 +31,10 @@ export function SlowMoments() {
               style={{ fontFamily: 'Helvetica, "Helvetica Neue", Arial, sans-serif' }}
             >
               <h1 className="text-3xl leading-tight md:text-5xl lg:text-[54px] font-bold text-[#1A4B75]">
-                Crafted with Care,<br />Served with Passion.
+                Slow down.<br />Take a breath.<br />Enjoy the moment.
               </h1>
-              <p className="text-sm md:text-lg text-[#1A4B75]/70 font-medium">
-                Locally Crafted Coffee for Every Coffee Lover.
+              <p className="text-sm md:text-lg text-[#1A4B75]/70 font-medium max-w-md lg:ml-auto">
+                Your everyday escape for good coffee, comforting bites, and moments worth sharing.
               </p>
             </div>
 
@@ -42,7 +42,7 @@ export function SlowMoments() {
               href="/menu"
               className="inline-block px-10 py-3 border border-[#1A4B75] text-[#1A4B75] text-xs font-bold uppercase tracking-widest hover:bg-[#1A4B75] hover:text-white transition-all duration-300 rounded-sm"
             >
-              See Menu
+              Explore Our Menu
             </Link>
           </div>
         </div>

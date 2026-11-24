@@ -55,14 +55,25 @@ export function Location() {
             <div className="flex flex-col gap-5">
               <div className="border-t border-white/15 pt-5">
                 <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/40 mb-1">Location</p>
-                <p className="text-sm font-medium">Keo Chenda St, Phnom Penh</p>
+                <p className="text-sm font-medium">#188, St. Keo Chenda, Sangkat Chroy Chongva, Phnom Penh</p>
               </div>
               <div className="border-t border-white/15 pt-5">
                 <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/40 mb-1">Hours</p>
-                <p className="text-sm font-medium">Mon - Sun · 7:30 AM - 7:30 PM</p>
+                <p className="text-sm font-medium">Mon - Sun · 7:00 AM - 8:00 PM</p>
+              </div>
+              <div className="border-t border-white/15 pt-5">
+                <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-white/40 mb-1">Telegram</p>
+                <a
+                  href="https://t.me/+85598653599"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium underline-offset-4 hover:underline"
+                >
+                  098 65 35 99
+                </a>
               </div>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=SLOW+DRIP+cafe+and+eatery+Phnom+Penh"
+                href="https://maps.app.goo.gl/UVNvhRhpQ3GGYuws8"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-white text-[#1A4B75] px-6 py-3.5 text-sm font-bold uppercase tracking-widest hover:bg-white/90 transition-colors"
